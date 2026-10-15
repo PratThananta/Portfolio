@@ -1,0 +1,75 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { projects } from '../../data/projects';
+---
+
+<SiteLayout title="Projects" active="Projects">
+  <section class="page-heading container">
+    <h1>Game projects</h1>
+    <p>
+      Student projects in gameplay programming and level design. Each page
+      includes my role, contributions, and available screenshots or video.
+    </p>
+  </section>
+  <section class="container projects-section" aria-label="Project collection">
+    <div class="filter-bar">
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button
+          type="button"
+          class="filter-button"
+          aria-pressed="true"
+          data-filter="All"
+        >
+          All projects <span>{String(projects.length).padStart(2, '0')}</span>
+        </button>
+        <button
+          type="button"
+          class="filter-button"
+          aria-pressed="false"
+          data-filter="Programming"
+        >
+          Programming
+        </button>
+        <button
+          type="button"
+          class="filter-button"
+          aria-pressed="false"
+          data-filter="Game design"
+        >
+          Game design
+        </button>
+      </div>
+      <p id="project-count" class="mono" role="status">
+        {projects.length} PROJECT{projects.length === 1 ? '' : 'S'}
+      </p>
+    </div>
+    <div class="project-grid collection-grid">
+      {projects.map((project, index) => (
+        <ProjectCard project={project} index={index} />
+      ))}
+    </div>
+  </section>
+  <script>
+    const buttons =
+      document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+    const cards = document.querySelectorAll<HTMLElement>('[data-category]');
+    buttons.forEach((button) =>
+      button.addEventListener('click', () => {
+        const category = button.dataset.filter;
+        buttons.forEach((item) =>
+          item.setAttribute('aria-pressed', String(item === button)),
+        );
+        let count = 0;
+        cards.forEach((card) => {
+          card.hidden =
+            category !== 'All' && card.dataset.category !== category;
+          if (!card.hidden) count++;
+        });
+        const status = document.querySelector('#project-count');
+        if (status)
+          status.textContent = `${count} PROJECT${count === 1 ? '' : 'S'}`;
+      }),
+    );
+  </script>
+</SiteLayout>

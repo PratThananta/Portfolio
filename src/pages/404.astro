@@ -1,0 +1,16 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Icon from '../components/Icon.astro';
+import { url } from '../lib/paths';
+---
+
+<SiteLayout title="Page not found">
+  <section class="container not-found">
+    <p class="eyebrow">404</p>
+    <h1>Page not found</h1>
+    <p>The page may have moved or the address may be incorrect.</p>
+    <a class="button primary" href={url()}>
+      Back to home <Icon />
+    </a>
+  </section>
+</SiteLayout>

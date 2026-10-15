@@ -1,0 +1,48 @@
+---
+import Icon from './Icon.astro';
+import { url } from '../lib/paths';
+import type { Project } from '../data/projects';
+interface Props {
+  project: Project;
+  index?: number;
+}
+const { project, index = 0 } = Astro.props;
+---
+
+<article class="project-card" data-category={project.category}>
+  <a
+    class="project-card-link"
+    href={url(`projects/${project.slug}/`)}
+    aria-label={`Explore ${project.name}`}
+  >
+    <div class="project-image">
+      <img
+        src={url(project.cover)}
+        alt={project.coverAlt}
+        width="960"
+        height="540"
+        loading="lazy"
+      />
+      <span class="project-type">{project.category}</span>
+      <span class="project-open">
+        <Icon name="diagonal" />
+      </span>
+    </div>
+    <div class="project-card-body">
+      <div class="project-card-top">
+        <span class="mono">
+          0{index + 1} / {project.engine}
+        </span>
+        <span class="mono">
+          {project.video ? `${project.duration} gameplay` : 'Design project'}
+        </span>
+      </div>
+      <h3>{project.name}</h3>
+      <p>{project.summary}</p>
+      <div class="project-card-bottom">
+        <span>{project.role}</span>
+        <Icon name="arrow" size={18} />
+      </div>
+    </div>
+  </a>
+</article>

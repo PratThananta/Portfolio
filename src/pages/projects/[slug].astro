@@ -1,0 +1,154 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import Icon from '../../components/Icon.astro';
+import { projects } from '../../data/projects';
+import { url } from '../../lib/paths';
+export function getStaticPaths() {
+  return projects.map((project, index) => ({
+    params: { slug: project.slug },
+    props: { project, index },
+  }));
+}
+const { project, index } = Astro.props;
+const next = projects[(index + 1) % projects.length];
+---
+
+<SiteLayout
+  title={project.name}
+  description={project.summary}
+  active="Projects"
+  image={project.cover}
+>
+  <article class="project-detail container">
+    <a class="back-link" href={url('projects/')}>
+      <span aria-hidden="true">←</span> All projects
+    </a>
+    <div class="detail-heading">
+      <p class="eyebrow">
+        {project.context} / {project.category}
+      </p>
+      <h1>{project.name}</h1>
+      <p>{project.subtitle}</p>
+    </div>
+    <div class="project-facts">
+      <div>
+        <span class="mono">MY ROLE</span>
+        <strong>{project.role}</strong>
+      </div>
+      <div>
+        <span class="mono">ENGINE</span>
+        <strong>{project.engine}</strong>
+      </div>
+      <div>
+        <span class="mono">PLATFORM</span>
+        <strong>{project.platform}</strong>
+      </div>
+      <div>
+        <span class="mono">PROJECT TYPE</span>
+        <strong>{project.tags.at(-1)}</strong>
+      </div>
+    </div>
+    <figure
+      class:list={['detail-media', { 'portrait-video': project.portrait }]}
+    >
+      {project.video ? (
+        <video
+          controls
+          playsinline
+          preload="none"
+          poster={url(project.cover)}
+          aria-label={`${project.name} gameplay video`}
+          aria-describedby="video-description"
+          width={project.portrait ? 360 : 1920}
+          height={project.portrait ? 640 : 1080}
+        >
+          <source src={url(project.video)} type="video/mp4" />
+          Your browser does not support embedded video.{' '}
+          <a href={url(project.video)}>Download the gameplay video</a>.
+        </video>
+      ) : (
+        <img
+          src={url(project.cover)}
+          alt={project.coverAlt}
+          width="960"
+          height="540"
+        />
+      )}
+      <figcaption id="video-description">
+        {project.video ? (
+          <>
+            <span>
+              <Icon name="play" size={14} /> Gameplay recording ·{' '}
+              {project.duration}
+            </span>
+            <a href={url(project.video)} download>
+              Download video <Icon name="download" size={14} />
+            </a>
+          </>
+        ) : (
+          <span>Furry War title artwork · Student team project</span>
+        )}
+      </figcaption>
+    </figure>
+    {project.portrait && (
+      <p class="media-note">
+        An original short recording from the project, presented in its vertical
+        format.
+      </p>
+    )}
+
+    <div class="case-layout">
+      <aside class="case-sidebar">
+        <p class="eyebrow">IN THIS PROJECT</p>
+        <a href="#overview">01 / Overview</a>
+        <a href="#contribution">02 / My contribution</a>
+      </aside>
+      <div class="case-content">
+        <section id="overview">
+          <h2>Overview</h2>
+          <p>{project.overview}</p>
+          <div class="tags">
+            {project.tags.map((tag) => (
+              <span>{tag}</span>
+            ))}
+          </div>
+        </section>
+        <section id="contribution">
+          <h2>My contribution</h2>
+          <div class="contributions">
+            {project.contributions.map((contribution, i) => (
+              <div class="contribution">
+                <span class="contribution-number mono">0{i + 1}</span>
+                <div>
+                  <h3>{contribution.title}</h3>
+                  <p>{contribution.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+        {project.gallery?.map((image) => (
+          <figure class="detail-gallery">
+            <img
+              src={url(image.src)}
+              alt={image.alt}
+              width="800"
+              height="450"
+              loading="lazy"
+            />
+            <figcaption>{image.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+    <a class="next-project" href={url(`projects/${next.slug}/`)}>
+      <div>
+        <p class="eyebrow">NEXT PROJECT</p>
+        <h2>{next.name}</h2>
+      </div>
+      <span>
+        <Icon name="diagonal" size={32} />
+      </span>
+    </a>
+  </article>
+</SiteLayout>

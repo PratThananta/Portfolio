@@ -1,0 +1,136 @@
+---
+import '@fontsource-variable/dm-sans';
+import '@fontsource-variable/space-grotesk';
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import { url } from '../lib/paths';
+import { profile } from '../data/profile';
+interface Props {
+  title?: string;
+  description?: string;
+  active?: string;
+  image?: string;
+}
+const {
+  title,
+  description = 'Game development, level design, and mobile QA work by Pratchayaphong “Mos” Thananta, a Digital Game student at CAMT, Chiang Mai University.',
+  active = '',
+  image = 'images/qullion-cover.png',
+} = Astro.props;
+const pageTitle = title
+  ? `${title} — Mos / Pratchayaphong Thananta`
+  : 'Mos — Game Developer & QA Tester';
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const links = [
+  { label: 'Home', path: '' },
+  { label: 'Projects', path: 'projects/' },
+  { label: 'About', path: 'about/' },
+  { label: 'Contact', path: 'contact/' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b101b" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(url(image), Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <header class="site-header">
+      <a class="brand" href={url()} aria-label="Mos, home">
+        <span class="brand-mark">
+          m<span>.</span>
+        </span>
+        <span>
+          MOS<span class="brand-slash"> / </span>
+          <span class="brand-sub">PORTFOLIO</span>
+        </span>
+      </a>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="main-navigation"
+      >
+        <span>Menu</span>
+        <span class="menu-lines" aria-hidden="true"></span>
+      </button>
+      <nav id="main-navigation" aria-label="Main navigation">
+        {links.map((link) => (
+          <a
+            href={url(link.path)}
+            aria-current={active === link.label ? 'page' : undefined}
+          >
+            {link.label}
+            {link.label === 'Contact' && <Icon name="diagonal" size={15} />}
+          </a>
+        ))}
+      </nav>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer container">
+      <div>
+        <a class="footer-name" href={url()}>
+          MOS<span>.</span>
+        </a>
+        <p>{profile.role}</p>
+      </div>
+      <div class="footer-links">
+        <a href={profile.github}>
+          GitHub <Icon name="diagonal" size={14} />
+        </a>
+        <a href={url('contact/')}>
+          Get in touch <Icon name="diagonal" size={14} />
+        </a>
+        <span>© {new Date().getFullYear()} Pratchayaphong Thananta</span>
+      </div>
+    </footer>
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+      const nav = document.querySelector<HTMLElement>('#main-navigation');
+      function closeMenu(returnFocus = false) {
+        toggle?.setAttribute('aria-expanded', 'false');
+        nav?.classList.remove('is-open');
+        if (returnFocus) toggle?.focus();
+      }
+      toggle?.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') !== 'true';
+        toggle.setAttribute('aria-expanded', String(open));
+        nav?.classList.toggle('is-open', open);
+      });
+      document.addEventListener('keydown', (event) => {
+        if (
+          event.key === 'Escape' &&
+          toggle?.getAttribute('aria-expanded') === 'true'
+        )
+          closeMenu(true);
+      });
+      document.addEventListener('click', (event) => {
+        if (!(event.target instanceof Element)) return;
+        if (!event.target.closest('.site-header')) closeMenu();
+      });
+      nav
+        ?.querySelectorAll('a')
+        .forEach((link) => link.addEventListener('click', () => closeMenu()));
+      matchMedia('(min-width: 701px)').addEventListener('change', (event) => {
+        if (event.matches) closeMenu();
+      });
+    </script>
+  </body>
+</html>

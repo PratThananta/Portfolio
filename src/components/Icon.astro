@@ -1,0 +1,39 @@
+---
+interface Props {
+  name?:
+    | 'arrow'
+    | 'diagonal'
+    | 'download'
+    | 'play'
+    | 'mail'
+    | 'code'
+    | 'check'
+    | 'copy';
+  size?: number;
+}
+const { name = 'arrow', size = 20 } = Astro.props;
+const paths = {
+  arrow: 'M4 12h16m-6-6 6 6-6 6',
+  diagonal: 'M6 18 18 6M6 6h12v12',
+  download: 'M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5',
+  play: 'm9 5 11 7-11 7V5Z',
+  mail: 'M3 5h18v14H3V5Zm0 1 9 7 9-7',
+  code: 'm8 6-6 6 6 6m8-12 6 6-6 6M14 3l-4 18',
+  check: 'm5 12 4 4L19 6',
+  copy: 'M8 8h13v13H8V8Zm-4 8H3V3h13v1',
+};
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.7"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  <path d={paths[name]} />
+</svg>

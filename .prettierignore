@@ -1,0 +1,9 @@
+node_modules/
+.npm/
+.astro/
+dist/
+test-results/
+playwright-report/
+package-lock.json
+public/
+src/assets/

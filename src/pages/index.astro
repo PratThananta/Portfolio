@@ -1,0 +1,140 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Icon from '../components/Icon.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/projects';
+import { url } from '../lib/paths';
+import { Image } from 'astro:assets';
+import portrait from '../assets/mos-portrait.png';
+---
+
+<SiteLayout active="Home">
+  <section class="hero container">
+    <div class="hero-copy">
+      <p class="eyebrow">
+        <span class="status-dot"></span> GAME DEVELOPER & QA TESTER
+      </p>
+      <h1 class="hero-name">
+        Pratchayaphong
+        <br />
+        <span class="text-accent">Thananta</span>
+      </h1>
+      <p class="hero-intro">
+        Digital Game student at CAMT, Chiang Mai University, with experience in
+        gameplay programming, level design, and mobile game QA.
+      </p>
+      <div class="actions">
+        <a class="button primary" href={url('projects/')}>
+          View projects <Icon />
+        </a>
+        <a class="button quiet" href={url('about/')}>
+          About me <Icon name="diagonal" size={17} />
+        </a>
+      </div>
+      <div class="hero-location">
+        <span class="small-cross" aria-hidden="true">
+          +
+        </span>{' '}
+        CAMT · CHIANG MAI UNIVERSITY · THAILAND
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="portrait-frame">
+        <Image
+          src={portrait}
+          alt="Mos standing outdoors among trees"
+          width={820}
+          format="webp"
+          quality={85}
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="portrait-caption">
+          <span>Pratchayaphong Thananta</span>
+          <span class="mono">MOS / มอส</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="practice-strip">
+    <div class="container">
+      <span>GAMEPLAY PROGRAMMING</span>
+      <span class="strip-star" aria-hidden="true">
+        ✳
+      </span>
+      <span>QUALITY ASSURANCE</span>
+      <span class="strip-star" aria-hidden="true">
+        ✳
+      </span>
+      <span>GAME & LEVEL DESIGN</span>
+      <span class="strip-star" aria-hidden="true">
+        ✳
+      </span>
+      <span>AI-ASSISTED WORKFLOW</span>
+    </div>
+  </div>
+
+  <section class="section container" aria-labelledby="selected-heading">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">01 / PROJECTS</p>
+        <h2 id="selected-heading">Featured projects</h2>
+      </div>
+      <a class="text-link" href={url('projects/')}>
+        All projects <Icon name="diagonal" size={18} />
+      </a>
+    </div>
+    <div class="project-grid home-projects">
+      {projects.slice(0, 3).map((project, index) => (
+        <ProjectCard project={project} index={index} />
+      ))}
+    </div>
+  </section>
+
+  <section
+    class="experience-preview container"
+    aria-labelledby="experience-heading"
+  >
+    <div>
+      <p class="eyebrow">02 / EXPERIENCE</p>
+      <h2 id="experience-heading">Quality assurance</h2>
+      <p>
+        My QA work includes writing test cases, reporting bugs, testing
+        interfaces, and checking fixes through regression testing.
+      </p>
+      <a class="text-link" href={url('about/#experience')}>
+        My QA experience <Icon name="diagonal" size={18} />
+      </a>
+    </div>
+    <div class="experience-card">
+      <div class="experience-card-top">
+        <span class="mono">WORK EXPERIENCE</span>
+        <span class="status-dot"></span>
+      </div>
+      <h3>Jumbo Jump</h3>
+      <p class="experience-role">Quality Assurance Intern</p>
+      <p class="mono">JUNE — OCTOBER 2026</p>
+      <div class="experience-divider"></div>
+      <p>
+        Functional and regression testing for mobile games across Android and
+        iOS.
+      </p>
+      <div class="tags">
+        <span>Test cases</span>
+        <span>Bug reporting</span>
+        <span>UI testing</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-banner container">
+    <div>
+      <h2>Contact</h2>
+      <p>Email me about game development or QA opportunities.</p>
+    </div>
+    <a class="button primary" href={url('contact/')}>
+      Contact me <Icon name="diagonal" />
+    </a>
+  </section>
+</SiteLayout>

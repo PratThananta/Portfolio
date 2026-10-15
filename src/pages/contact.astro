@@ -1,0 +1,84 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Icon from '../components/Icon.astro';
+import { profile } from '../data/profile';
+import { url } from '../lib/paths';
+---
+
+<SiteLayout title="Contact" active="Contact">
+  <section class="page-heading container contact-heading">
+    <h1>Contact</h1>
+    <p>
+      For game development, QA opportunities, or project enquiries, contact me
+      by email.
+    </p>
+  </section>
+  <section class="container contact-content" aria-label="Contact details">
+    <div class="email-card">
+      <span class="contact-icon">
+        <Icon name="mail" size={28} />
+      </span>
+      <p class="eyebrow">EMAIL</p>
+      <a class="email-address" href={`mailto:${profile.email}`}>
+        {profile.email}
+      </a>
+      <div class="actions">
+        <a class="button primary" href={`mailto:${profile.email}`}>
+          Send an email <Icon name="diagonal" size={18} />
+        </a>
+        <button
+          class="button secondary"
+          id="copy-email"
+          data-email={profile.email}
+          type="button"
+        >
+          Copy address <Icon name="copy" size={17} />
+        </button>
+      </div>
+      <p
+        id="copy-status"
+        class="copy-status"
+        role="status"
+        aria-live="polite"
+      ></p>
+    </div>
+    <div class="contact-side">
+      <a class="contact-link-card" href={profile.github}>
+        <span>
+          <span class="eyebrow">GITHUB</span>
+          <strong>PratThananta</strong>
+          <span>My GitHub profile and repositories.</span>
+        </span>
+        <Icon name="diagonal" size={24} />
+      </a>
+      <a
+        class="contact-link-card"
+        href={url('documents/Pratchayaphong_Resume.pdf')}
+        download
+      >
+        <span>
+          <span class="eyebrow">DOWNLOAD</span>
+          <strong>My résumé</strong>
+          <span>Experience, education, and skills · PDF</span>
+        </span>
+        <Icon name="download" size={24} />
+      </a>
+    </div>
+  </section>
+  <script>
+    document
+      .querySelector<HTMLButtonElement>('#copy-email')
+      ?.addEventListener('click', async (event) => {
+        const button = event.currentTarget as HTMLButtonElement;
+        const status = document.querySelector('#copy-status');
+        try {
+          await navigator.clipboard.writeText(button.dataset.email || '');
+          if (status) status.textContent = 'Email address copied.';
+        } catch {
+          if (status)
+            status.textContent =
+              'Copy is unavailable here. You can select the address above or use Send an email.';
+        }
+      });
+  </script>
+</SiteLayout>

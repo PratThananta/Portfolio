@@ -1,0 +1,31 @@
+{
+  "name": "mos-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro dev --host 0.0.0.0",
+    "build": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro preview --host 0.0.0.0",
+    "check": "cross-env ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "test": "playwright test"
+  },
+  "dependencies": {
+    "@fontsource-variable/dm-sans": "^5.2.8",
+    "@fontsource-variable/space-grotesk": "^5.2.10",
+    "astro": "^7.3.8"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@axe-core/playwright": "^4.11.1",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^24.19.2",
+    "cross-env": "^10.1.0",
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.1",
+    "typescript": "^5.9.3"
+  }
+}
