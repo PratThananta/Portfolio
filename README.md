@@ -39,7 +39,7 @@ The build creates `dist/`. No account, API key, database, or third-party font co
 
 Add its media to `public/images/` and optionally `public/videos/`, then add an entry to the `projects` array. Give it a unique URL-friendly `slug`. A project card and separate page are generated automatically. Supported filters are `Programming` and `Game design`; adding a new category also requires updating the filter buttons and TypeScript category type. A project's page describes the owner's contribution, not ownership of every team asset.
 
-The homepage currently features the first three entries. The collection and its project count update automatically from the complete list.
+The homepage currently features the first three entries. The collection and its project count update automatically from the complete list. To add a playable or downloadable game page, set the project's optional `gameLink` to an object with `url` and `label` fields. This adds an external-link button below the project description.
 
 Videos use native playback controls and load on demand. The uploaded recordings are preserved, with MP4 metadata moved to the front for streaming. Project N is intentionally displayed vertically. The portrait is optimized during the build; its original file is preserved and its visible crop is controlled with CSS.
 

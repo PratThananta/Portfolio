@@ -30,6 +30,19 @@ const next = projects[(index + 1) % projects.length];
       <h1>{project.name}</h1>
       <p>{project.subtitle}</p>
     </div>
+    {project.gameLink && (
+      <div class="project-actions">
+        <a
+          class="button primary"
+          href={project.gameLink.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${project.gameLink.label} (opens in a new tab)`}
+        >
+          {project.gameLink.label} <Icon name="diagonal" size={18} />
+        </a>
+      </div>
+    )}
     <div class="project-facts">
       <div>
         <span class="mono">MY ROLE</span>

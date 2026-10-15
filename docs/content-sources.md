@@ -17,6 +17,8 @@ Prepared from material the portfolio owner supplied in this conversation. Upload
 
 ## Editorial choices
 
+- The owner supplied `https://iiiwachi.itch.io/furrywar` as Furry War's game page. The Facebook tracking query was removed. The link is included on the project page; this environment's network proxy blocked an independent check of the external page.
+
 - Use direct, factual language: names, roles, project descriptions, skills, and experience. Avoid promotional slogans, metaphors, and decorative motivational text, as requested by the owner.
 - Focus: Game Developer & QA Tester; student projects remain described as student projects.
 - QA experience lives on About, with a homepage summary. No private workplace tickets, test reports, or unprovided metrics are claimed or published.

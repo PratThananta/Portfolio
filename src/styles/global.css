@@ -797,6 +797,9 @@ button {
 .detail-heading > p:last-child {
   font-size: 1.16rem;
 }
+.project-actions {
+  margin-top: 24px;
+}
 .project-facts {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1fr;

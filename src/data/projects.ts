@@ -13,6 +13,7 @@ export interface Project {
   video?: string;
   duration?: string;
   portrait?: boolean;
+  gameLink?: { url: string; label: string };
   summary: string;
   overview: string;
   contributions: { title: string; text: string }[];
@@ -113,6 +114,10 @@ export const projects: Project[] = [
     context: 'Student team project',
     cover: 'images/furry-war-cover.png',
     coverAlt: 'Furry War title artwork with a forest and wooden sign',
+    gameLink: {
+      url: 'https://iiiwachi.itch.io/furrywar',
+      label: 'View game on itch.io',
+    },
     summary:
       'A turn-based shooting game with distinct battlefields and tactical terrain.',
     overview:
